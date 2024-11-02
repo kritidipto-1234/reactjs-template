@@ -33,11 +33,9 @@ const MonthPicker: React.FC<MonthPickerProps> = ({currentDate,onChange, mainDate
             goToNextValue={goToNextValue}
             label="Month selection"
         >
-            <select value={currentMonth} onChange={changeMonth}>
-                {months.map((month, index) => (
-                    <option key={index} value={index}>{month}</option>
-                ))}
-            </select>
+            <div className={styles.Month}>
+                {months[currentMonth]}
+            </div>
         </ValueNavigator>
 
     </div>

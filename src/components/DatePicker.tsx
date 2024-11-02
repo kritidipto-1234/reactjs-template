@@ -43,11 +43,16 @@ const DatePicker: React.FC<DatePickerProps> = ({validateUsingRangeLogic,persistV
     }, [persistValidatedDate,validate,setInternalDate]);
 
     return <div className={styles.DatePicker}>
-        {mainDate?<div>{mainDate.toLocaleDateString('en-GB', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric'
-        })}</div>:<div>No date selected</div>}
+        <div className={styles.selectedDate}>
+            {mainDate 
+                ? mainDate.toLocaleDateString('en-GB', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric'
+                  })
+                : <span className={styles.placeholder}>No date selected</span>
+            }
+        </div>
         <div className={styles.YearMonthPicker}>
             <MonthPicker onChange={onChange} currentDate={mainDate}  {...(props.mode === 'range' ? { mainDateType: props.mainDateType } : {})}/>
             <YearPicker onChange={onChange} {...(props.mode === 'range' ? { mainDateType: props.mainDateType } : {})}  currentDate={mainDate}/>

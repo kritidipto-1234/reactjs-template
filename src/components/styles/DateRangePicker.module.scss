@@ -1,0 +1,15 @@
+.DateRangePicker{
+    background-color: rgb(135, 196, 229);
+    height: 370px;
+    gap: 10px;
+
+    .Error{
+        color: red;
+    }   
+
+    .DatePickerContainer{
+        display: flex;
+        gap: 10px;
+        flex-direction: row;
+    }
+}

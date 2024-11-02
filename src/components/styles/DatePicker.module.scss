@@ -1,0 +1,13 @@
+.DatePicker {
+    border: 1px solid blue;
+    padding: 5px;
+    display: inline-block;
+    .YearMonthPicker{
+        display: flex;
+        flex-direction: row;
+    }
+
+    .Error{
+        color: red;
+    }
+}

@@ -1,0 +1,54 @@
+.Day{
+    // padding: 6px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    // border-radius: 50%;
+    align-items: center;
+
+    &:hover{
+        background-color: #d3f7f4 !important;
+        cursor: pointer;
+    }
+
+    &.isOutOfMonth{
+        color: #ccc;
+        pointer-events: none;
+    }
+
+    &.selected{
+        background-color: #bce8e5;
+        font-weight: 900;
+        font-size: 18px;
+    }
+
+    &.leftHalfCircle {
+        border-bottom-left-radius: 50%;
+        border-top-left-radius: 50%;
+    }
+
+    &.rightHalfCircle {
+        border-bottom-right-radius: 50%;
+        border-top-right-radius: 50%;
+    }
+
+    &.mainControl{
+        border: 1px solid rgb(72, 75, 81);
+    }
+
+}
+
+.header{
+    .DayName{
+        width: 40px;
+        height: 40px;
+        display: flex;
+        justify-content: center;
+        border-radius: 50%;
+        align-items: center;
+
+        color: #312727;
+        font-weight: 900;
+    }
+}

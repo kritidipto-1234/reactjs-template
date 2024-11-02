@@ -1,0 +1,9 @@
+.switcher {
+    .option {
+        border: 1px solid blue;
+        background-color: rgb(189, 228, 238);
+        &.selected {
+            background-color: red;
+        }
+    }
+}

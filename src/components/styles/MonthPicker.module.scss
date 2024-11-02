@@ -1,0 +1,12 @@
+.MonthPicker {
+  select {
+    appearance: none;
+    background-color: white;
+    cursor: pointer;
+    text-align: center;
+    
+    &:hover {
+      background-color: #f8f8f8;
+    }
+  }
+}

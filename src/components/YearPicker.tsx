@@ -1,4 +1,5 @@
 import ValueNavigator from "../common/ValueNavigator";
+import styles from './styles/YearPicker.module.scss';
 
 type YearPickerProps = {
     currentDate: Date;
@@ -28,7 +29,7 @@ const YearPicker: React.FC<YearPickerProps> = ({currentDate, mainDateType, onCha
         onChange?.(targetDate,mainDateType);
     }
 
-    return <div>
+    return <div className={styles.YearPicker}>
         <ValueNavigator goToPreviousValue={goToPreviousYear} goToNextValue={goToNextYear}>
             <input type="number" value={currentYear} placeholder="Year" onChange={changeYear}/>
         </ValueNavigator>

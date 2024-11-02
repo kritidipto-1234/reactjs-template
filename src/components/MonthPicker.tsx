@@ -1,4 +1,5 @@
 import ValueNavigator from "../common/ValueNavigator";
+import styles from "./styles/MonthPicker.module.scss";
 
 type MonthPickerProps = {
     currentDate: Date;
@@ -26,7 +27,7 @@ const MonthPicker: React.FC<MonthPickerProps> = ({currentDate,onChange, mainDate
     }
 
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    return <div>
+    return <div className={styles.MonthPicker}>
         <ValueNavigator goToPreviousValue={goToPreviousValue} goToNextValue={goToNextValue}>
             <select value={currentMonth} onChange={changeMonth}>
                 {months.map((month, index) => (

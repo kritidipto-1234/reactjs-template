@@ -1,3 +1,4 @@
+import styles from "./styles/ValueNavigator.module.scss";
 type ValueNavigatorProps = {
     goToPreviousValue: () => void;
     goToNextValue?: () => void;
@@ -5,7 +6,7 @@ type ValueNavigatorProps = {
 }
 
 const ValueNavigator: React.FC<ValueNavigatorProps> = ({goToPreviousValue, children, goToNextValue}) => {
-    return <div>
+    return <div className={styles.ValueNavigator}>
         {goToPreviousValue && <span onClick={goToPreviousValue}>{'<'}</span>}
         {children}
         {goToNextValue && <span onClick={goToNextValue}>{'>'}</span>}

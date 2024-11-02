@@ -1,40 +1,42 @@
 .Day{
-    // padding: 6px;
     width: 40px;
     height: 40px;
     display: flex;
     justify-content: center;
-    // border-radius: 50%;
     align-items: center;
+    font-size: 14px;
+    transition: all 0.2s ease;
 
     &:hover{
-        background-color: #d3f7f4 !important;
+        background-color: #e8f4ff !important;
         cursor: pointer;
     }
 
     &.isOutOfMonth{
-        color: #ccc;
+        color: #bbb;
         pointer-events: none;
     }
 
     &.selected{
-        background-color: #bce8e5;
-        font-weight: 900;
-        font-size: 18px;
+        background-color: #e3f2fd;
+        font-weight: 600;
     }
 
     &.leftHalfCircle {
-        border-bottom-left-radius: 50%;
-        border-top-left-radius: 50%;
+        background-color: #e3f2fd;
+        border-bottom-left-radius: 20px;
+        border-top-left-radius: 20px;
     }
 
     &.rightHalfCircle {
-        border-bottom-right-radius: 50%;
-        border-top-right-radius: 50%;
+        background-color: #e3f2fd;
+        border-bottom-right-radius: 20px;
+        border-top-right-radius: 20px;
     }
 
     &.mainControl{
-        border: 1px solid rgb(72, 75, 81);
+        border: 2px solid #1976d2;
+        // border-radius: 50%;
     }
 
 }
@@ -45,10 +47,9 @@
         height: 40px;
         display: flex;
         justify-content: center;
-        border-radius: 50%;
         align-items: center;
-
-        color: #312727;
-        font-weight: 900;
+        color: #666;
+        font-weight: 600;
+        font-size: 13px;
     }
 }

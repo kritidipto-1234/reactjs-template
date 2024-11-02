@@ -1,13 +1,22 @@
 .DatePicker {
-    border: 1px solid blue;
-    padding: 5px;
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    padding: 15px;
     display: inline-block;
-    .YearMonthPicker{
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+
+    .YearMonthPicker {
         display: flex;
         flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 15px;
     }
 
-    .Error{
-        color: red;
+    .Error {
+        color: #dc3545;
+        font-size: 14px;
+        margin-top: 8px;
     }
 }

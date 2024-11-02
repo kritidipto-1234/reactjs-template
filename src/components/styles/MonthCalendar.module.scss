@@ -1,11 +1,11 @@
 .MonthCalendar {
-    border: 1px solid blue;
-    padding: 10px;
+    border: none;
+    padding: 0;
     display: inline-block;
 
-    .WeekNames{
+    .WeekNames {
         display: flex;
         flex-direction: row;
-        // justify-content: center;
+        margin-bottom: 10px;
     }
 }

@@ -58,9 +58,9 @@ const Day:React.FC<DayProps> = ({mainDate, dateToDisplayInfo, error, otherDate,.
     if (mainDateType === "start" && (isOtherDate)) classes.push(styles.rightHalfCircle);
     if (mainDateType === "end" && (isOtherDate)) classes.push(styles.leftHalfCircle);
 
-    return <div onClick={changeDate} className={`${styles.Day} ${classes.join(' ')}`}>
+    return <button onClick={changeDate} className={`${styles.Day} ${classes.join(' ')}`}>
         {dateToDisplay.getDate()}
-    </div>
+    </button>
 }
 
 export default Day;

@@ -7,11 +7,21 @@
     font-size: 14px;
     transition: all 0.2s ease;
 
+    border: none;
+    background: none;
+    padding: 0;
+    margin: 0;
+
     &:hover{
         background-color: #e8f4ff !important;
         cursor: pointer;
     }
 
+    &:focus {
+        outline: 1px solid #203b64;
+        border-color: #203b64;
+        box-shadow: 0 0 0 2px rgba(0, 102, 255, 0.1);
+    }
     &.isOutOfMonth{
         color: #bbb;
         pointer-events: none;

@@ -129,7 +129,7 @@ function DateRangePicker({startDate, endDate, setStartDate, setEndDate, config =
 
     const resetPicker = function(){
         setInternalStartDate(startDate || getStartOfDay());
-        setInternalEndDate(endDate || getStartOfDay());
+        setInternalEndDate(endDate || getStartOfNextDay());
         setError(undefined);
     }
 

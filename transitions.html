@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        .container {
+            width: 100px;
+            height: 50px;
+            position: relative;
+            margin: 0 auto;
+            border: 10px solid black;
+        }
+
+
+
+        .slide-element {
+            width: 100%;
+            position: absolute;
+            transition: transform 2.3s;
+            background: lightblue;
+            border: 1px solid blue;
+        }
+
+        .current { transform: translateX(0); }
+        .next { transform: translateX(100%); }
+        .slide-left-exit { transform: translateX(-100%); }
+        .slide-left-enter { transform: translateX(0); }
+
+
+    </style>
+
+    <style>
+        .animation-container {
+            width: 100px;
+            height: 50px;
+            position: relative;
+            margin: 0 auto;
+            border: 10px solid black;
+        }
+
+        @keyframes slideLeftExit {
+            from { transform: translateX(0); }
+            to { transform: translateX(-300%); }
+        }
+
+        @keyframes slideLeftEnter {
+            from { transform: translateX(100%); }
+            to { transform: translateX(0); }
+        }
+
+        .slide-animation-exit {
+            animation: slideLeftExit 2.3s forwards;
+        }
+
+        .slide-animation-enter {
+            animation: slideLeftEnter 2.3s forwards;
+        }
+
+        .animation-element {
+            width: 60px;
+            position: absolute;
+            background: lightblue;
+            border: 1px solid blue;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="slide-element current" id="elem1">First</div>
+    </div>
+    <button onclick="slide()">Slide</button>
+    <div class="animation-container">
+        <div class="animation-element" id="elem1Animation">First</div>
+    </div>
+    <button onclick="slideUsingAnimation()">Slide using Animation</button>
+
+    <script>
+        
+        function slide() {
+            const elem1 = document.getElementById('elem1');
+            const elem2 = document.createElement('div');
+            elem2.className = 'slide-element next';
+            elem2.textContent = 'Second';
+            document.querySelector('.container').appendChild(elem2);
+
+            elem1.classList.add('slide-left-exit');
+
+            setTimeout(() => {
+                elem2.classList.add('slide-left-enter');
+            }, 1);
+        }
+    
+        function slideUsingAnimation() {
+            const elem1 = document.getElementById('elem1Animation');
+            const elem2 = document.createElement('div');
+            
+            // Set up initial styles
+            elem2.className = 'animation-element';
+            elem2.textContent = 'Second';
+            document.querySelector('.animation-container').appendChild(elem2);
+
+            // Start animations
+            elem1.classList.add('slide-animation-exit');
+            elem2.classList.add('slide-animation-enter');
+        }
+    </script>
+</body>
+</html>

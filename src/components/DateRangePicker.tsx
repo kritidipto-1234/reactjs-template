@@ -20,7 +20,16 @@ type DateRangePickerProps = {
     config: DateRangePickerConfig;
 }
 
-function isValidConfig(config: DateRangePickerConfig,startDate:Date,endDate:Date){
+/**
+ * Validates the configuration and date range for the DateRangePicker component.
+ *
+ * @param {DateRangePickerConfig} config - The configuration object for the DateRangePicker.
+ * @param {Date} startDate - The start date of the range.
+ * @param {Date} endDate - The end date of the range.
+ * @returns {Object} - An object containing the validation result and an optional error message.
+ *                     { isValid: boolean, errorMessage?: string }
+ */
+function isValidConfig(config: DateRangePickerConfig, startDate: Date, endDate: Date) {
     if (!config.pastDateAllowed  && startDate.getTime() < getStartOfDay().getTime()) return { isValid:false,errorMessage:"Past date not allowed"}   ;
     if (!config.pastDateAllowed  && endDate.getTime() < getStartOfDay().getTime()) return { isValid:false,errorMessage:"Past date not allowed"};
     if (config.maxDateInFuture && startDate.getTime() > config.maxDateInFuture.getTime()) return { isValid:false,errorMessage:"Max date in future exceeded"};
@@ -31,7 +40,6 @@ function isValidConfig(config: DateRangePickerConfig,startDate:Date,endDate:Date
     return { isValid:true };
 }
 
-//assumption : config is valid , there shd be a validate Config option too
 function DateRangePicker({startDate, endDate, setStartDate, setEndDate, config = {}}: DateRangePickerProps) {
     const [error, setError] = useState<ErrorState | undefined>(undefined);
     const [visible, setVisible] = useState(false);

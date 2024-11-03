@@ -4,7 +4,7 @@ import { DatePickerProps, RangeDatePickerProps } from '../@types/datePicker';
 import MonthPicker from './MonthPicker';
 import YearPicker from './YearPicker';
 import { useCallback, useState, useEffect } from 'react';
-import { getStartOfDay } from '../utils/DateUtils';
+import { getStartOfDay , getDateWithFirstofMonthYear } from '../utils/DateUtils';
 import SlideTransition from '../common/TransitionSlider';
 
 
@@ -58,7 +58,7 @@ const DatePicker: React.FC<DatePickerProps> = ({validateUsingRangeLogic,persistV
             <MonthPicker onChange={onChange} currentDate={mainDate}  {...(props.mode === 'range' ? { mainDateType: props.mainDateType } : {})}/>
             <YearPicker onChange={onChange} {...(props.mode === 'range' ? { mainDateType: props.mainDateType } : {})}  currentDate={mainDate}/>
         </div>
-        <SlideTransition slideKey={mainDate.getMonth()}>
+        <SlideTransition slideKey={getDateWithFirstofMonthYear(mainDate).getTime()}>
             <MonthCalendar error={error} key={Date.now()} onChange={onChange}  {...(props.mode === 'range' ? { mainDateType: props.mainDateType, otherDate: props.otherDate } : {})} unselectedDate={!props.mainDate}  {...props} mainDate={mainDate} />
         </SlideTransition>
     </div>

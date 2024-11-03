@@ -146,7 +146,7 @@ function DateRangePicker({startDate, endDate, setStartDate, setEndDate, config =
     const dateRangePickerJsx =  <div className={styles.DateRangePicker}>
         <div className={styles.header}>
             <div className={styles.daysSelected}>
-                No of days selected: <span>{(internalEndDate.getTime() - internalStartDate.getTime()) / (1000 * 60 * 60 * 24) + 1}</span>
+                No of days selected: <span>{(Math.max(internalEndDate.getTime() - internalStartDate.getTime()) / (1000 * 60 * 60 * 24) + 1,0)}</span>
             </div>
             <button className={styles.closeButton} onClick={closeDatePickerModal}>
                 &times;

@@ -82,6 +82,7 @@ const Day:React.FC<DayProps> = ({mainDate, dateToDisplayInfo, error, otherDate,.
         onClick={changeDate} 
         className={`${styles.Day} ${classes.join(' ')}`}
         aria-label={ariaLabel}
+        tabIndex={dateToDisplayInfo.isOutOfMonth ? -1 : 0}
         aria-selected={isSelected || isOtherDate || false}
         aria-disabled={dateToDisplayInfo.isOutOfMonth}
         role="gridcell"

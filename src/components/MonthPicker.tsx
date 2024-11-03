@@ -7,6 +7,8 @@ type MonthPickerProps = {
     mainDateType?: "start" | "end";
 }
 
+const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
 const MonthPicker: React.FC<MonthPickerProps> = ({currentDate,onChange, mainDateType }) => {
 
     const currentMonth = currentDate.getMonth();
@@ -26,7 +28,6 @@ const MonthPicker: React.FC<MonthPickerProps> = ({currentDate,onChange, mainDate
         onChange?.(new Date(currentDate.getFullYear(), currentMonth + 1, 1),mainDateType);
     }
 
-    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     return <div 
         className={styles.MonthPicker}
         role="group"

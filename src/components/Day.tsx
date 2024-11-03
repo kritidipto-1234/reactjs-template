@@ -1,6 +1,6 @@
 import { ErrorState } from '../@types/datePicker';
 import styles from './styles/Day.module.scss'
-
+import { memo, useCallback } from 'react';
 declare type DayProps = {
     mainDate: Date,
     dateToDisplayInfo: DateInfo,
@@ -90,4 +90,4 @@ const Day:React.FC<DayProps> = ({mainDate, dateToDisplayInfo, error, otherDate,.
     </button>
 }
 
-export default Day;
+export default memo(Day);

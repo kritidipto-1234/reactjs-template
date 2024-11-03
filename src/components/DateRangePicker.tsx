@@ -122,26 +122,7 @@ function DateRangePicker({startDate, endDate, setStartDate, setEndDate, config}:
         config: { pastDateAllowed: config.pastDateAllowed }
     };
 
-    const dateRangePickerJsx =  <div className={styles.DateRangePicker}>
-        <div className={styles.daysSelected}>
-            No of days selected: <span>{(internalEndDate.getTime() - internalStartDate.getTime()) / (1000 * 60 * 60 * 24) + 1}</span>
-        </div>
-        <div className={styles.DatePickerContainer}>
-            <DatePicker 
-                {...commonProps}
-                mainDateType="start"
-                mainDate={internalStartDate}
-                otherDate={internalEndDate}
-            />
-            <DatePicker 
-                {...commonProps}
-                mainDateType="end"
-                mainDate={internalEndDate}
-                otherDate={internalStartDate}
-            />
-        </div>
-        {error && <div className={styles.Error}>{error.errorMessage}</div>}
-    </div>;
+
 
     const  validity = isValidConfig(config,startDate || getStartOfDay(),endDate || getStartOfDay());
     if (!validity.isValid) return <div>Invalid Config {validity.errorMessage} </div>;
@@ -162,6 +143,32 @@ function DateRangePicker({startDate, endDate, setStartDate, setEndDate, config}:
             if(!v) resetPicker();
         return !v});
     }
+    const dateRangePickerJsx =  <div className={styles.DateRangePicker}>
+        <div className={styles.header}>
+            <div className={styles.daysSelected}>
+                No of days selected: <span>{(internalEndDate.getTime() - internalStartDate.getTime()) / (1000 * 60 * 60 * 24) + 1}</span>
+            </div>
+            <button className={styles.closeButton} onClick={closeDatePickerModal}>
+                &times;
+            </button>
+        </div>
+        <div className={styles.DatePickerContainer}>
+            <DatePicker 
+                {...commonProps}
+                mainDateType="start"
+                mainDate={internalStartDate}
+                otherDate={internalEndDate}
+            />
+            <DatePicker 
+                {...commonProps}
+                mainDateType="end"
+                mainDate={internalEndDate}
+                otherDate={internalStartDate}
+            />
+        </div>
+        {error && <div className={styles.Error}>{error.errorMessage}</div>}
+    </div>;
+
     return <div className={styles.container}>
         <button className={styles.rangePicker} onClick={toggleVisibility}>
             <span>Range Picker</span>

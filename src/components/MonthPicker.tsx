@@ -39,7 +39,12 @@ const MonthPicker: React.FC<MonthPickerProps> = ({currentDate,onChange, mainDate
         >
             <div 
                 className={styles.Month}
-                role="heading"
+                role="button"
+                tabIndex={0}
+                onKeyDown={(e) => {
+                    if (e.key === 'ArrowLeft') goToPreviousValue();
+                    if (e.key === 'ArrowRight') goToNextValue();
+                }}
                 aria-label={`Current month: ${months[currentMonth]} ${currentDate.getFullYear()}`}
             >
                 {months[currentMonth]}

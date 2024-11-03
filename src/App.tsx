@@ -8,6 +8,10 @@ const App: React.FC = () => {
     <>
       <h2>Valid Configurations</h2>
       
+      <div>Basic mode (No config)</div>
+      <ShowcaseRangepicker />
+
+      <div>Advanced configs</div>
       <ShowcaseRangepicker 
         config={{
           pastDateAllowed: true,
@@ -17,16 +21,8 @@ const App: React.FC = () => {
         initialStartDate={new Date(2024, 2, 1)}
         initialEndDate={new Date(2024, 2, 5)}
       />
+ 
 
-      <ShowcaseRangepicker 
-        config={{
-          pastDateAllowed: false,
-          // maxRange: 10,
-          startEndSameAllowed: true
-        }}
-        initialStartDate={new Date(2025, 2, 1)}
-        initialEndDate={new Date(2025, 2, 5)}
-      />
 
       <ShowcaseRangepicker 
         config={{
@@ -56,7 +52,7 @@ const App: React.FC = () => {
 
 
 
-      {/* Breaking pastDateAllowed rule */}
+      <div>Breaking pastDateAllowed rule</div>
       <ShowcaseRangepicker 
         config={{
           pastDateAllowed: false,
@@ -66,7 +62,7 @@ const App: React.FC = () => {
         initialEndDate={new Date(2023, 0, 5)}   // Past date
       />
 
-      {/* Breaking startEndSameAllowed rule */}
+      <div>Breaking startEndSameAllowed rule</div>
       <ShowcaseRangepicker 
         config={{
           startEndSameAllowed: false,
@@ -76,7 +72,7 @@ const App: React.FC = () => {
         initialEndDate={new Date(2024, 2, 15)}  // Same as start date
       />
 
-      {/* Breaking maxDateInFuture rule */}
+      <div>Breaking maxDateInFuture rule</div>
       <ShowcaseRangepicker 
         config={{
           maxDateInFuture: new Date(2023, 6, 1),
@@ -86,7 +82,7 @@ const App: React.FC = () => {
         initialEndDate={new Date(2024, 8, 1)}   // Beyond maxDateInFuture
       />
 
-      {/* Breaking multiple rules */}
+      <div>Breaking multiple rules</div>
       <ShowcaseRangepicker 
         config={{
           pastDateAllowed: false,

@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import DateRangePicker, { DateRangePickerConfig } from "../components/DateRangePicker";
 type ShowcaseRangepickerProps = {
-    config:DateRangePickerConfig;
-    initialStartDate:Date;
-    initialEndDate:Date;
+    config?:DateRangePickerConfig;
+    initialStartDate?:Date;
+    initialEndDate?:Date;
 }
 
-const ShowcaseRangepicker = ({config,initialStartDate,initialEndDate}:ShowcaseRangepickerProps) => {
+const ShowcaseRangepicker = ({config={},initialStartDate,initialEndDate}:ShowcaseRangepickerProps) => {
     const [startDate, setStartDate] = useState<Date | undefined>(initialStartDate);
     const [endDate, setEndDate] = useState<Date | undefined>(initialEndDate);
 

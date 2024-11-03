@@ -2,7 +2,7 @@ import {  useCallback, useState } from "react";
 import Switcher from "../common/Switcher";
 import DatePicker from "./DatePicker";
 import styles from "./styles/DateRangePicker.module.scss";
-import { getStartOfDay } from "../utils/DateUtils";
+import { getStartOfDay, getStartOfNextDay } from "../utils/DateUtils";
 import Modal from "../common/Modal";
 import { ErrorState } from "../@types/datePicker";
 
@@ -13,8 +13,8 @@ export type DateRangePickerConfig = {
     maxDateInFuture?: Date;
 }
 type DateRangePickerProps = {
-    startDate: Date | undefined;
-    endDate: Date | undefined;
+    startDate?: Date | undefined;
+    endDate?: Date | undefined;
     setStartDate: (_newDate: Date | undefined) => void;
     setEndDate: (_newDate: Date | undefined) => void;
     config: DateRangePickerConfig;
@@ -32,13 +32,13 @@ function isValidConfig(config: DateRangePickerConfig,startDate:Date,endDate:Date
 }
 
 //assumption : config is valid , there shd be a validate Config option too
-function DateRangePicker({startDate, endDate, setStartDate, setEndDate, config}: DateRangePickerProps) {
+function DateRangePicker({startDate, endDate, setStartDate, setEndDate, config = {}}: DateRangePickerProps) {
     const [error, setError] = useState<ErrorState | undefined>(undefined);
     const [visible, setVisible] = useState(false);
 
     //the actual state ofdates in range picker. Dates arent persisted if its in error state
     const [internalStartDate, setInternalStartDate] = useState<Date>(startDate  || getStartOfDay());
-    const [internalEndDate, setInternalEndDate] = useState<Date>(endDate  || getStartOfDay());
+    const [internalEndDate, setInternalEndDate] = useState<Date>(endDate  || getStartOfNextDay());
 
     const validate = useCallback((newDate: Date, type: "start" | "end") => {
         let d1,d2;
@@ -124,7 +124,7 @@ function DateRangePicker({startDate, endDate, setStartDate, setEndDate, config}:
 
 
 
-    const  validity = isValidConfig(config,startDate || getStartOfDay(),endDate || getStartOfDay());
+    const  validity = isValidConfig(config,startDate || getStartOfDay(),endDate || getStartOfNextDay());
     if (!validity.isValid) return <div>Invalid Config {validity.errorMessage} </div>;
 
     const resetPicker = function(){

@@ -58,7 +58,34 @@ const Day:React.FC<DayProps> = ({mainDate, dateToDisplayInfo, error, otherDate,.
     if (mainDateType === "start" && (isOtherDate)) classes.push(styles.rightHalfCircle);
     if (mainDateType === "end" && (isOtherDate)) classes.push(styles.leftHalfCircle);
 
-    return <button onClick={changeDate} className={`${styles.Day} ${classes.join(' ')}`}>
+    // Create accessible date description
+    const formattedDate = dateToDisplay.toLocaleDateString('en-US', { 
+        weekday: 'long', 
+        year: 'numeric', 
+        month: 'long', 
+        day: 'numeric' 
+    });
+
+    let ariaLabel = formattedDate;
+    if (isSelected) {
+        ariaLabel += `, selected as ${mainDateType} date`;
+    } else if (isOtherDate) {
+        ariaLabel += `, ${mainDateType === 'start' ? 'end' : 'start'} date`;
+    } else if (inRange) {
+        ariaLabel += ', within selected range';
+    }
+    if (dateToDisplayInfo.isOutOfMonth) {
+        ariaLabel += ', outside current month';
+    }
+
+    return <button 
+        onClick={changeDate} 
+        className={`${styles.Day} ${classes.join(' ')}`}
+        aria-label={ariaLabel}
+        aria-selected={isSelected || isOtherDate || false}
+        aria-disabled={dateToDisplayInfo.isOutOfMonth}
+        role="gridcell"
+    >
         {dateToDisplay.getDate()}
     </button>
 }

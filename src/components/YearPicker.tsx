@@ -29,15 +29,26 @@ const YearPicker: React.FC<YearPickerProps> = ({currentDate, mainDateType, onCha
         onChange?.(targetDate,mainDateType);
     }
 
-    return <div className={styles.YearPicker}>
+    return <div 
+        className={styles.YearPicker}
+        role="group"
+        aria-label="Year selection"
+    >
         <ValueNavigator 
             goToPreviousValue={goToPreviousYear} 
             goToNextValue={goToNextYear}
             label="Year selection"
         >
-            <input type="number" value={currentYear} placeholder="Year" onChange={changeYear}/>
+            <input 
+                type="number" 
+                value={currentYear} 
+                placeholder="Year" 
+                onChange={changeYear}
+                aria-label={`Select year, current year is ${currentYear}`}
+                aria-valuenow={currentYear}
+                role="spinbutton"
+            />
         </ValueNavigator>
-
     </div>
 }
 

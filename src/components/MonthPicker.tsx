@@ -27,17 +27,24 @@ const MonthPicker: React.FC<MonthPickerProps> = ({currentDate,onChange, mainDate
     }
 
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    return <div className={styles.MonthPicker}>
+    return <div 
+        className={styles.MonthPicker}
+        role="group"
+        aria-label="Month selection"
+    >
         <ValueNavigator 
             goToPreviousValue={goToPreviousValue} 
             goToNextValue={goToNextValue}
             label="Month selection"
         >
-            <div className={styles.Month}>
+            <div 
+                className={styles.Month}
+                role="heading"
+                aria-label={`Current month: ${months[currentMonth]} ${currentDate.getFullYear()}`}
+            >
                 {months[currentMonth]}
             </div>
         </ValueNavigator>
-
     </div>
 }
 

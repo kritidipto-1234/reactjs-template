@@ -33,6 +33,8 @@ const SlideTransition: React.FC<SlideTransitionProps> = ({ children, slideKey })
             // Better: Use animationend event instead of setTimeout
             const handleAnimationEnd = () => {
                 setPreviousSlide(undefined);
+                currentRef?.removeEventListener('animationend', handleAnimationEnd);
+                previousRef?.removeEventListener('animationend', handleAnimationEnd);
             };
 
             const currentRef = currentSlideRef.current;

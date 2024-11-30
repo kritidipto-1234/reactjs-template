@@ -1,0 +1,79 @@
+.Comment {
+    position: relative;
+    // border: 1px solid black;
+    width: fit-content;
+    
+    &.top {
+        // margin-left: 200px;
+        min-width: 100vw;
+    }
+
+
+    &:not(.top) {
+        margin: 0 5px;
+    }
+
+
+    .authorData {
+        display: flex;
+        // border: 1px solid green;
+        justify-content: start;
+        background-color: rgb(236, 236, 200);
+        padding: 10px;
+        border-bottom: 1px solid green;
+        width: fit-content;
+        // width: min-content;
+        margin:auto;
+        margin-bottom: 100px;
+        align-items: center;
+        img {
+            border-radius: 50%;
+            margin-right: 10px;
+            width: 35px;
+            height: 35px;
+            border: 1px solid black;
+        }
+        button {
+            margin-right: 10px;
+        }
+
+        &:hover {
+            cursor: pointer;
+            background-color: rgb(210, 210, 170);
+        }
+
+        &.notClickable {
+            pointer-events: none;
+            background-color: #f0f0f0;
+        }
+    }
+
+    .content {
+        // border: 1px solid blue;
+
+        .connector {
+            // border: 1px solid red;
+            position: absolute;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            left: 0;
+            z-index: -11;
+        }
+
+        &.collapsed {
+            display: none;
+        }
+
+        display: flex;
+        flex-direction: row;
+
+        align-items: top;
+        justify-content: space-evenly;
+        .text {
+            word-break: break-all;
+            padding: 5px;
+        }
+    }
+
+}

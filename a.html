@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .connector {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .comment {
+            position: relative;
+            border: 1px solid green;
+        }
+
+        .authorData {
+            height: 100px;
+            width: 100px;
+            border: 1px solid red;
+            margin-bottom: 100px;
+        }
+
+        #child1 {
+            margin-left: 400px;
+        }
+
+
+        #parent1 {
+            padding-left: 200px;
+            /* margin-left: 200px; */
+        }
+
+        #special {
+            background-color: aqua;
+            width:fit-content;
+        }
+
+        #special2 {
+            border: 1px solid black;
+            width: 2000px;
+        }
+    </style>
+</head>
+<body>
+    <div id="root">
+        <div id="special">
+            ok
+            <div id="special2">ok2</div>
+        </div>
+        <div>ok</div>
+        <div>ok</div>
+        <div>ok</div>
+        <div>ok</div>
+        <div>ok</div>
+        <div>ok</div>
+        <div class="comment" id="parent1">
+            <div class="authorData" >parent</div>
+            <div class="content">
+                <svg class="connector">
+                    <line 
+                        x1="0" y1="0"
+                        x2="0" y2="0"
+                        stroke="#88c0d0"
+                        strokeWidth="2"
+                    />
+                </svg>
+                <div class="comment" id="child1">
+                    <div class="authorData">child1</div>
+                    <div class="content"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<script>
+    function updateConnector() {
+        const to = document.querySelector('#child1 .authorData');
+        const from = document.querySelector('#parent1 .authorData');
+        const connector = document.querySelector('.connector line');
+        const parent = document.querySelector('#parent1');
+        
+        // Get positions relative to the document
+        const fromBox = from.getBoundingClientRect();
+        const toBox = to.getBoundingClientRect();
+        const parentBox = parent.getBoundingClientRect();
+        
+        // Calculate absolute positions
+        const scrollX = 0;     
+        const scrollY = 0;
+        const startX = fromBox.left +  fromBox.width / 2 - parentBox.left;
+        const startY = fromBox.top +  fromBox.height - parentBox.top;
+        const endX = toBox.left   + toBox.width / 2 - parentBox.left;
+        const endY = toBox.top  - parentBox.top;
+        
+        connector.setAttribute('x1', startX);
+        connector.setAttribute('y1', startY);
+        connector.setAttribute('x2', endX);
+        connector.setAttribute('y2', endY);
+    }
+
+    // Update on load, resize, and scroll
+    window.addEventListener('load', updateConnector);
+    // window.addEventListener('resize', updateConnector);
+    // window.addEventListener('scroll', updateConnector);
+</script>
+</body>
+</html>

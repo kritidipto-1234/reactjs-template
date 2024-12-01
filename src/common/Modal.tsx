@@ -7,7 +7,8 @@ type ModalProps = {
 }
 const Modal = ({children,closeModal}:ModalProps) => {
     return <div className={styles.Modal}>
-        {children}
+        <div className={styles.overlay} onClick={closeModal}></div>
+        <div className={styles.content}>{children}</div>
     </div>
 }
 

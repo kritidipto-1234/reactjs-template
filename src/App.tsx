@@ -1,13 +1,21 @@
 import './App.css'
-import data from './data.ts';
-import Comment from './Comment.tsx';
+import Carousel from './components/Carousel.tsx';
+
+
+const images = [
+  'https://picsum.photos/200/300',
+  'https://picsum.photos/200/300',
+  'https://picsum.photos/200/300',
+  'https://picsum.photos/200/300',
+  'https://picsum.photos/200/300',
+]
 
 const App: React.FC = () => {
   const today = new Date();
   
   return (
     <>
-      <Comment data={data} />
+      <Carousel images={images} />
     </>
   )
 }

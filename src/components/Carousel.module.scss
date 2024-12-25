@@ -1,0 +1,29 @@
+.Carousel {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    .Carousel__arrow {
+        font-size: 2rem;
+        cursor: pointer;
+    }
+
+    .Carousel__images {
+        border: 5px solid green;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+
+        .Carousel__image {
+            width: 200px;
+            // border: 5px solid red;
+        }
+
+        .Carousel__image__active {
+            border: 5px solid blue;
+        }
+    }
+}

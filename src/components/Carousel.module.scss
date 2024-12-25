@@ -1,9 +1,11 @@
 .Carousel {
+    background-color: #b3c7cc;
     margin: 0 auto;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
+    position: relative;
     // border: 5px solid red;
     width: 650px;
 
@@ -28,16 +30,46 @@
         width: 200px;
         position: relative;
         overflow-x: scroll;
+        scrollbar-width: none; /* Firefox */
+        -ms-overflow-style: none;  /* Internet Explorer 10+ */
+
+        &::-webkit-scrollbar { /* WebKit */
+            width: 0;
+            height: 0;
+        }
         gap: 10px;
 
 
         .Carousel__image {
             width: 200px;
+            background-color: grey;
             // border: 5px solid red;
         }
 
         .Carousel__image__active {
-            border: 5px solid blue;
+            // border: 5px solid blue;
+        }
+    }
+    .Carousel__dots {
+        display: flex;
+        justify-content: center;
+        gap: 8px;
+        position: absolute;
+        bottom: 36px;
+        left: 0;
+        right: 0;
+
+        .Carousel__dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+
+            &.active {
+                background-color: white;
+            }
         }
     }
 

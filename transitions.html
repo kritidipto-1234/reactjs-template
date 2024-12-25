@@ -39,7 +39,7 @@
 
         @keyframes slideLeftExit {
             from { transform: translateX(0); }
-            to { transform: translateX(-300%); }
+            to { transform: translateX(-100%); }
         }
 
         @keyframes slideLeftEnter {
@@ -63,15 +63,9 @@
         }
     </style>
 
-    <style>
-        div:focus,button:focus {
-            border: 1px solid red;
-            outline: 1px solid red;
-        }
-    </style>
 </head>
 <body>
-    <!-- <div id="transitions">
+    <div id="transitions">
         <div class="container">
             <div class="slide-element current" id="elem1">First</div>
         </div>
@@ -80,26 +74,9 @@
             <div class="animation-element" id="elem1Animation">First</div>
         </div>
         <button onclick="slideUsingAnimation()">Slide using Animation</button>
-    </div> -->
-
-    <div id="output">
-        <div tabindex="1">1</div>
-        <div tabindex="0">4</div>
-        <div tabindex="2">2</div>
-        <div tabindex="3">3</div>
-        <div tabindex="-1">Never</div>
-        <button type="button" onclick="add()">Add</button>
     </div>
 
     <script>
-        // document.querySelector('[tabindex="2"]').focus();
-        setInterval(() => {
-            console.log(document.activeElement);
-        }, 1000);
-
-        function add() {
-            console.log("Adding")
-        }
 
         function slide() {
             const elem1 = document.getElementById('elem1');

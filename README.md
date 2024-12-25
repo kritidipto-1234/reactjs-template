@@ -1,1 +1,1 @@
-site https://date-picker.vercel.app/
+site https://kriti-carousel.netlify.app

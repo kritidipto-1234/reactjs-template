@@ -1,8 +1,17 @@
 import classes from './Carousel.module.scss';   
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import React from 'react';
-const Carousel = ({children}: {children: React.ReactNode}) => {
+
+type CarouselProps = {
+    children: React.ReactNode;
+    contentWidth?: string;
+    contentHeight?: string;
+}
+
+const Carousel = ({children, contentWidth, contentHeight}: CarouselProps) => {
     const images= React.Children.toArray(children);
+    contentWidth = contentWidth || '200px';
+    contentHeight = contentHeight || '200px';
 
     const [currentImage, setCurrentImage] = useState(0);
     const containerRef = useRef<HTMLDivElement>(null);
@@ -32,10 +41,16 @@ const Carousel = ({children}: {children: React.ReactNode}) => {
     return (
         <div className={classes.Carousel}>
             <div className={classes.Carousel__arrow} onClick={handlePrevious}>{'<'}</div>
-            <div ref={containerRef} className={classes.Carousel__images}>
-                {images.map((image, index) => (
-                    <span ref={el => imagesRef.current[index] = el!} className={classes.Carousel__image} key={index}>{image}</span>
-                ))}
+            <div ref={containerRef} className={classes.Carousel__images} style={{width: contentWidth, height: contentHeight}}>
+                {
+                    React.Children.map(children, (child, index) => (
+                        React.cloneElement(child, {
+                            ref: (el:HTMLElement) => imagesRef.current[index] = el!,
+                            className: classes.Carousel__image,
+                            key: index
+                        })
+                    ))
+                }
             </div>
             <div className={classes.Carousel__dots}>
                     {images.map((_, index) => (

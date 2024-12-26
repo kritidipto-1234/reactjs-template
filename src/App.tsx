@@ -15,7 +15,11 @@ const App: React.FC = () => {
   
   return (
     <>
-      <Carousel images={images} />
+      <Carousel >
+        {images.map((image, index) => (
+          <img src={image} alt={`Image ${index}`} key={index} />
+        ))}
+      </Carousel>
     </>
   )
 }

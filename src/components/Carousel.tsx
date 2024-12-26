@@ -1,11 +1,12 @@
 import classes from './Carousel.module.scss';   
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
-
-const Carousel = ({images}: {images: string[]}) => {
+import React from 'react';
+const Carousel = ({children}: {children: React.ReactNode}) => {
+    const images= React.Children.toArray(children);
 
     const [currentImage, setCurrentImage] = useState(0);
     const containerRef = useRef<HTMLDivElement>(null);
-    const imagesRef = useRef<HTMLImageElement[]>([]);
+    const imagesRef = useRef<HTMLSpanElement[]>([]);
 
 
     useEffect(() => {
@@ -33,7 +34,7 @@ const Carousel = ({images}: {images: string[]}) => {
             <div className={classes.Carousel__arrow} onClick={handlePrevious}>{'<'}</div>
             <div ref={containerRef} className={classes.Carousel__images}>
                 {images.map((image, index) => (
-                    <img ref={el => imagesRef.current[index] = el!} className={classes.Carousel__image} src={image} alt={`Image ${index}`} key={index} />
+                    <span ref={el => imagesRef.current[index] = el!} className={classes.Carousel__image} key={index}>{image}</span>
                 ))}
             </div>
             <div className={classes.Carousel__dots}>
@@ -51,3 +52,6 @@ const Carousel = ({images}: {images: string[]}) => {
 }
 
 export default Carousel;
+
+//image loading
+//css width

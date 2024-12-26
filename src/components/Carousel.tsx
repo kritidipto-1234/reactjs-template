@@ -24,6 +24,8 @@ const Carousel = ({children, contentWidth, contentHeight}: CarouselProps) => {
             if (index === currentImage) {
                 scrollX = image.getBoundingClientRect().left-containerRef.current!.getBoundingClientRect().left + containerRef.current!.scrollLeft;
                 // scrollX = image.offsetLeft;
+                const leftMargin = (containerRef.current!.getBoundingClientRect().width - image.getBoundingClientRect().width)/2;
+                if (index !== 0) scrollX = scrollX  - leftMargin; // images of different size
             }
         });
 
@@ -38,6 +40,13 @@ const Carousel = ({children, contentWidth, contentHeight}: CarouselProps) => {
         setCurrentImage(i => (i-1+images.length)%images.length);
     }
 
+    useLayoutEffect(() => {
+        const firstImageLeftMargin = (containerRef.current!.getBoundingClientRect().width - imagesRef.current[0].getBoundingClientRect().width)/2;
+        const lastImageRightMargin = (containerRef.current!.getBoundingClientRect().width - imagesRef.current[images.length-1].getBoundingClientRect().width)/2;
+        imagesRef.current[0].style.marginLeft = firstImageLeftMargin + 'px';
+        imagesRef.current[images.length-1].style.marginRight = lastImageRightMargin + 'px';
+    }, [images.length]);
+
     return (
         <div className={classes.Carousel}>
             <div className={classes.Carousel__arrow} onClick={handlePrevious}>{'<'}</div>
@@ -46,7 +55,7 @@ const Carousel = ({children, contentWidth, contentHeight}: CarouselProps) => {
                     React.Children.map(children, (child, index) => (
                         React.cloneElement(child, {
                             ref: (el:HTMLElement) => imagesRef.current[index] = el!,
-                            className: classes.Carousel__image,
+                            className: classes.Carousel__image + (index === currentImage ? ' ' + classes.Carousel__image__active : ''),
                             key: index
                         })
                     ))

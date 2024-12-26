@@ -37,17 +37,23 @@
             width: 0;
             height: 0;
         }
-        gap: 10px;
+        gap: 30px;
 
 
         .Carousel__image {
-            background-color: grey;
+            background-color: rgb(48, 47, 47);
+            margin:  auto 0;
+            display: block;
             // border: 5px solid red;
+
+            &:not(.Carousel__image__active) {
+                opacity: 0.3;
+                filter: brightness(50%);
+                // border: 5px solid blue;
+            }
         }
 
-        .Carousel__image__active {
-            // border: 5px solid blue;
-        }
+
     }
     .Carousel__dots {
         display: flex;

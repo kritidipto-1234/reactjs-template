@@ -15,11 +15,11 @@ const App: React.FC = () => {
   return (
     <>
       <Carousel contentWidth='500px' contentHeight='500px'>
-        <img src={images[0]} alt='Image 0' />
+        <img style={{width: '200px',height: '200px'}} src={images[0]} alt='Image 0' />
         <img src={images[1]} alt='Image 1' />
         <img src={images[2]} alt='Image 2' />
-        <img src={images[3]} alt='Image 3' />
-        <img src={images[4]} alt='Image 4' />
+        <img style={{width: '100px',height: '100px'}} src={images[3]} alt='Image 3' />
+        <img style={{width: '200px',height: '300px'}} src={images[4]} alt='Image 4' />
       </Carousel>
     </>
   )

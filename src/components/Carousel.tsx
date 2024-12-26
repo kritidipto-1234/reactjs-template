@@ -92,7 +92,7 @@ const Carousel = ({children, contentWidth, contentHeight}: CarouselProps) => {
             <div ref={containerRef} className={classes.Carousel__images} style={{width: contentWidth, height: contentHeight}}>
                 {
                     React.Children.map(children, (child, index) => (
-                        React.cloneElement(child, {
+                        React.cloneElement(child as React.ReactElement, {
                             ref: (el:HTMLElement) => imagesRef.current[index] = el!,
                             className: classes.Carousel__image + (index === currentImage ? ' ' + classes.Carousel__image__active : ''),
                             key: index
@@ -121,4 +121,3 @@ export default Carousel;
 //abortontroller 
 //resizeobserver
 //uselayoutEffect
-//resizeObserver

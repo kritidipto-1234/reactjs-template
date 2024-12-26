@@ -9,7 +9,7 @@ type CarouselProps = {
 }
 
 const Carousel = ({children, contentWidth, contentHeight}: CarouselProps) => {
-    const images= React.Children.toArray(children);
+    const images=  React.useMemo(() => React.Children.toArray(children), [children]);
     contentWidth = contentWidth || '200px';
     contentHeight = contentHeight || '200px';
 
@@ -17,7 +17,7 @@ const Carousel = ({children, contentWidth, contentHeight}: CarouselProps) => {
     const containerRef = useRef<HTMLDivElement>(null);
     const imagesRef = useRef<HTMLSpanElement[]>([]);
 
-    const [loaded, setLoaded] = useState(false);
+    const [loadState, setLoadState] = useState<'notStarted'|'loading'|'loaded'>('notStarted');
 
 
     useEffect(() => {
@@ -42,14 +42,13 @@ const Carousel = ({children, contentWidth, contentHeight}: CarouselProps) => {
     }
 
     useEffect(() => {
-        // debugger;
-        // setLoaded(false);
+        //every time images change, trigger refetch
+        setLoadState('notStarted');
     }, [images]);
 
     useEffect(() => {
-        if (loaded) return;
-        setLoaded(false);
-       
+        if (loadState!=='notStarted') return;
+        setLoadState('loading');
         function calculateMargins() {
             const firstImageLeftMargin = (containerRef.current!.getBoundingClientRect().width - imagesRef.current[0].getBoundingClientRect().width)/2;
             const lastImageRightMargin = (containerRef.current!.getBoundingClientRect().width - imagesRef.current[images.length-1].getBoundingClientRect().width)/2;
@@ -57,8 +56,7 @@ const Carousel = ({children, contentWidth, contentHeight}: CarouselProps) => {
             imagesRef.current[images.length-1].style.marginRight = lastImageRightMargin + 'px';
         }
         
-        const imageElements = images.map(image => image);
-        const imagePromises =Promise.all(imageElements.map(image => {
+        const imagePromises =Promise.all(images.map(image => {
             if (image instanceof HTMLImageElement) {
                 return image.complete?true:new Promise(resolve => image.onload = () => {
                     resolve(true);
@@ -67,20 +65,26 @@ const Carousel = ({children, contentWidth, contentHeight}: CarouselProps) => {
             return true;
         }))
 
-        imagePromises.then((data) => {
-            console.log(data);
+        let shouldUpdate = true;
+        let didUpdate = false;
+
+        imagePromises.then(() => {
+            if (!shouldUpdate) return;
             calculateMargins();
-            setLoaded(true);
+            setLoadState('loaded');
+            didUpdate = true;
         });
 
         return () => {
-            imageElements.forEach(image => {
+            if (!didUpdate) setLoadState('notStarted');
+            shouldUpdate = false;
+            images.forEach(image => {
                 if (image instanceof HTMLImageElement) {
                     image.onload = null;
                 }
             });
         }
-    }, [images,loaded]);
+    }, [images,loadState]);
 
     return (
         <div className={classes.Carousel}>
@@ -105,7 +109,7 @@ const Carousel = ({children, contentWidth, contentHeight}: CarouselProps) => {
                 />
             ))}
             </div>
-            {!loaded && <div className={classes.Carousel__loading}>Loading...</div>}
+            {loadState!=='loaded' && <div className={classes.Carousel__loading}>Loading...</div>}
             <div className={classes.Carousel__arrow} onClick={handleNext}>{'>'}</div>
         </div>
     )
@@ -113,5 +117,8 @@ const Carousel = ({children, contentWidth, contentHeight}: CarouselProps) => {
 
 export default Carousel;
 
-//image loading
-//css width
+
+//abortontroller 
+//resizeobserver
+//uselayoutEffect
+//resizeObserver

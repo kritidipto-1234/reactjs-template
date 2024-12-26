@@ -14,7 +14,7 @@ const App: React.FC = () => {
   
   return (
     <>
-      <Carousel contentWidth='200px' contentHeight='200px'>
+      <Carousel contentWidth='500px' contentHeight='500px'>
         <img src={images[0]} alt='Image 0' />
         <img src={images[1]} alt='Image 1' />
         <img src={images[2]} alt='Image 2' />

@@ -28,36 +28,7 @@ const App: React.FC = () => {
   )
 }
 
- function App2() {
-  const [show, setShow] = useState(false);
-  const popup = useRef();
-  const button = useRef();
 
-  const startTime = performance.now();
-  while (performance.now() - startTime < 1000) {
-    // This loop will block for 1000ms (1 second)
-  }
-
-  useEffect(() => {
-    if (popup.current == null || button.current == null) return;
-    const { bottom } = button.current.getBoundingClientRect();
-    popup.current.style.top = `${bottom + 25}px`;
-  }, [show]);
-
-
-  return (
-    <>
-      <button ref={button} onClick={() => setShow(prev => !prev)}>
-        Click Here
-      </button>
-      {show && (
-        <div style={{ position: "absolute" }} ref={popup}>
-          This is a popup
-        </div>
-      )}
-    </>
-  );
-}
 
 export default App;
 

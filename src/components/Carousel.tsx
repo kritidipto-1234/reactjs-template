@@ -16,6 +16,7 @@ const Carousel = ({children, contentWidth, contentHeight}: CarouselProps) => {
     const [currentImage, setCurrentImage] = useState(0);
     const containerRef = useRef<HTMLDivElement>(null);
     const imagesRef = useRef<HTMLSpanElement[]>([]);
+    const positionsCaluclated = useRef(false);
 
 
     useEffect(() => {
@@ -25,10 +26,9 @@ const Carousel = ({children, contentWidth, contentHeight}: CarouselProps) => {
                 scrollX = image.getBoundingClientRect().left-containerRef.current!.getBoundingClientRect().left + containerRef.current!.scrollLeft;
                 // scrollX = image.offsetLeft;
                 const leftMargin = (containerRef.current!.getBoundingClientRect().width - image.getBoundingClientRect().width)/2;
-                if (index !== 0) scrollX = scrollX  - leftMargin; // images of different size
+               scrollX = scrollX  - leftMargin; // images of different size
             }
         });
-
         containerRef.current?.scrollTo({left: scrollX,behavior: 'smooth'});
     }, [currentImage]);
 
@@ -40,12 +40,14 @@ const Carousel = ({children, contentWidth, contentHeight}: CarouselProps) => {
         setCurrentImage(i => (i-1+images.length)%images.length);
     }
 
-    useLayoutEffect(() => {
-        const firstImageLeftMargin = (containerRef.current!.getBoundingClientRect().width - imagesRef.current[0].getBoundingClientRect().width)/2;
-        const lastImageRightMargin = (containerRef.current!.getBoundingClientRect().width - imagesRef.current[images.length-1].getBoundingClientRect().width)/2;
-        imagesRef.current[0].style.marginLeft = firstImageLeftMargin + 'px';
-        imagesRef.current[images.length-1].style.marginRight = lastImageRightMargin + 'px';
-    }, [images.length]);
+    useEffect(() => {
+        // setTimeout(() => {
+            const firstImageLeftMargin = (containerRef.current!.getBoundingClientRect().width - imagesRef.current[0].getBoundingClientRect().width)/2;
+            const lastImageRightMargin = (containerRef.current!.getBoundingClientRect().width - imagesRef.current[images.length-1].getBoundingClientRect().width)/2;
+            imagesRef.current[0].style.marginLeft = firstImageLeftMargin + 'px';
+            imagesRef.current[images.length-1].style.marginRight = lastImageRightMargin + 'px';
+        // }, 100);
+    }, [images]);
 
     return (
         <div className={classes.Carousel}>

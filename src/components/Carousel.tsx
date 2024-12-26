@@ -65,19 +65,19 @@ const Carousel = ({children, contentWidth, contentHeight}: CarouselProps) => {
             return true;
         }))
 
-        let shouldUpdate = true;
-        let didUpdate = false;
+        let componentMounted = true;
+        let marginCalculationCompleted = false;
 
         imagePromises.then(() => {
-            if (!shouldUpdate) return;
+            if (!componentMounted) return;
             calculateMargins();
             setLoadState('loaded');
-            didUpdate = true;
+            marginCalculationCompleted = true;
         });
 
         return () => {
-            if (!didUpdate) setLoadState('notStarted');
-            shouldUpdate = false;
+            if (!marginCalculationCompleted) setLoadState('notStarted');
+            componentMounted = false;
             images.forEach(image => {
                 if (image instanceof HTMLImageElement) {
                     image.onload = null;

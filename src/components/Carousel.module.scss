@@ -44,6 +44,7 @@
             background-color: rgb(48, 47, 47);
             margin:  auto 0;
             display: block;
+            flex-shrink: 0;
             // border: 5px solid red;
 
             &:not(.Carousel__image__active) {
@@ -76,6 +77,19 @@
                 background-color: white;
             }
         }
+    }
+
+    .Carousel__loading {
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 2;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        right: 0;
+        bottom: 0;
+        background-color: teal;
     }
 
 }

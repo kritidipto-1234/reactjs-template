@@ -16,7 +16,8 @@ const Carousel = ({children, contentWidth, contentHeight}: CarouselProps) => {
     const [currentImage, setCurrentImage] = useState(0);
     const containerRef = useRef<HTMLDivElement>(null);
     const imagesRef = useRef<HTMLSpanElement[]>([]);
-    const positionsCaluclated = useRef(false);
+
+    const [loaded, setLoaded] = useState(false);
 
 
     useEffect(() => {
@@ -41,7 +42,14 @@ const Carousel = ({children, contentWidth, contentHeight}: CarouselProps) => {
     }
 
     useEffect(() => {
-        
+        // debugger;
+        // setLoaded(false);
+    }, [images]);
+
+    useEffect(() => {
+        if (loaded) return;
+        setLoaded(false);
+       
         function calculateMargins() {
             const firstImageLeftMargin = (containerRef.current!.getBoundingClientRect().width - imagesRef.current[0].getBoundingClientRect().width)/2;
             const lastImageRightMargin = (containerRef.current!.getBoundingClientRect().width - imagesRef.current[images.length-1].getBoundingClientRect().width)/2;
@@ -49,14 +57,20 @@ const Carousel = ({children, contentWidth, contentHeight}: CarouselProps) => {
             imagesRef.current[images.length-1].style.marginRight = lastImageRightMargin + 'px';
         }
         
-        const imageElements = imagesRef.current.map(ref => ref.querySelector('img'));
-        Promise.all(imageElements.map(image => {
+        const imageElements = images.map(image => image);
+        const imagePromises =Promise.all(imageElements.map(image => {
             if (image instanceof HTMLImageElement) {
-                return image.complete?true:new Promise(resolve => image.onload = () => resolve(true));
+                return image.complete?true:new Promise(resolve => image.onload = () => {
+                    resolve(true);
+                });
             }
             return true;
-        })).then(() => {
+        }))
+
+        imagePromises.then((data) => {
+            console.log(data);
             calculateMargins();
+            setLoaded(true);
         });
 
         return () => {
@@ -66,7 +80,7 @@ const Carousel = ({children, contentWidth, contentHeight}: CarouselProps) => {
                 }
             });
         }
-    }, [images]);
+    }, [images,loaded]);
 
     return (
         <div className={classes.Carousel}>
@@ -91,6 +105,7 @@ const Carousel = ({children, contentWidth, contentHeight}: CarouselProps) => {
                 />
             ))}
             </div>
+            {!loaded && <div className={classes.Carousel__loading}>Loading...</div>}
             <div className={classes.Carousel__arrow} onClick={handleNext}>{'>'}</div>
         </div>
     )

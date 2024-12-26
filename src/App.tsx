@@ -12,11 +12,15 @@ const images = [
 
 const App: React.FC = () => {
   
+  // debugger;
   return (
     <>
       <Carousel contentWidth='500px' contentHeight='500px'>
-        <div style={{width: '400px',height: '200px'}}>
+        <div style={{width: '100px',height: '200px'}}>
           normal div
+        </div>
+        <div style={{width: '300px',height: '100px'}}>
+          normal div 2
         </div>
         <img style={{width: '200px',height: '200px'}} src={images[0]} alt='Image 0' />
         <img src={images[1]} alt='Image 1' />

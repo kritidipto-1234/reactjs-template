@@ -41,12 +41,31 @@ const Carousel = ({children, contentWidth, contentHeight}: CarouselProps) => {
     }
 
     useEffect(() => {
-        // setTimeout(() => {
+        
+        function calculateMargins() {
             const firstImageLeftMargin = (containerRef.current!.getBoundingClientRect().width - imagesRef.current[0].getBoundingClientRect().width)/2;
             const lastImageRightMargin = (containerRef.current!.getBoundingClientRect().width - imagesRef.current[images.length-1].getBoundingClientRect().width)/2;
             imagesRef.current[0].style.marginLeft = firstImageLeftMargin + 'px';
             imagesRef.current[images.length-1].style.marginRight = lastImageRightMargin + 'px';
-        // }, 100);
+        }
+        
+        const imageElements = imagesRef.current.map(ref => ref.querySelector('img'));
+        Promise.all(imageElements.map(image => {
+            if (image instanceof HTMLImageElement) {
+                return image.complete?true:new Promise(resolve => image.onload = () => resolve(true));
+            }
+            return true;
+        })).then(() => {
+            calculateMargins();
+        });
+
+        return () => {
+            imageElements.forEach(image => {
+                if (image instanceof HTMLImageElement) {
+                    image.onload = null;
+                }
+            });
+        }
     }, [images]);
 
     return (

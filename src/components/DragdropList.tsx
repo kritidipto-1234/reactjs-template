@@ -98,13 +98,22 @@ Dragdrop.Item = function Item({ children , data }: { children: React.ReactElemen
     const { isDragging, setIsDragging } = React.useContext(DragdropContext);
     const [isGettingDragged, setIsGettingDragged] = useState(false);
     const { containerid } = React.useContext(DropdownContainerContext);
+    const elementRef = useRef<HTMLDivElement>(null);
 
     function onDragStart(event: React.DragEvent<HTMLDivElement>) {
         setIsDragging(true);
         setIsGettingDragged(true);
-        // requestAnimationFrame(() => setIsGettingDragged(true));
         event.dataTransfer.setData('source', JSON.stringify({item: data, containerid: containerid}));
     }
+
+    useEffect(() => {
+        if (isGettingDragged) {
+            requestAnimationFrame(() => elementRef.current?.classList.add(styles.isGettingDragged));
+        }
+        else {
+            requestAnimationFrame(() => elementRef.current?.classList.remove(styles.isGettingDragged));
+        }
+    }, [isGettingDragged]);
 
     function onDragEnd(event: React.DragEvent<HTMLDivElement>) {
         setIsDragging(false);
@@ -116,7 +125,8 @@ Dragdrop.Item = function Item({ children , data }: { children: React.ReactElemen
         draggable: true, 
         onDragStart, 
         onDragEnd,
-        className: `${styles.dragdropItem} ${children.props.className} ${isDragging && !isGettingDragged ? styles.dragging : ''} ${isGettingDragged ? styles.beingDraggedOver : ''}`
+        ref: elementRef,
+        className: `${styles.dragdropItem} ${children.props.className} ${isDragging && !isGettingDragged ? styles.dragging : ''}`
     })}</>
 }
 

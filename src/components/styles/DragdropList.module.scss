@@ -5,8 +5,8 @@
             pointer-events: none;
         }
 
-        &.beingDraggedOver{
-            // visibility: hidden;
+        &.isGettingDragged{
+            visibility: hidden;
             // opacity: 0;
             // color: #000;
             // height: 10px;

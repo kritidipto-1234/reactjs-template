@@ -17,20 +17,20 @@ const DragdropContext = React.createContext<{
 
 function Dragdrop({ children }: { children: React.ReactNode }) {
     const [isDragging, setIsDragging] = useState(false);
-    const containers = useRef<Array<{id: number, addItem: Function, removeItem: Function}>>([]);
+    const [containers, setContainers] = useState<Array<{id: number, addItem: Function, removeItem: Function}>>([]);
 
     const registerContainer = useCallback((addItem: Function, removeItem: Function):number => {
-        const containerid = containers.current.length > 0 ? containers.current[containers.current.length - 1].id + 1 : 0;
-        containers.current.push({id: containerid, addItem, removeItem});
+        const containerid = Math.floor(Math.random() * Number.MAX_SAFE_INTEGER);
+        setContainers(containers=>[...containers, {id: containerid, addItem, removeItem}]);
         return containerid;
     }, []);
 
     const unregisterContainer = useCallback((containerid: number) => {
-        containers.current = containers.current.filter(container => container.id !== containerid);
+        setContainers(containers=>containers.filter(container => container.id !== containerid));
     }, []);
 
     return (
-        <DragdropContext.Provider value={{isDragging,  setIsDragging, registerContainer, unregisterContainer,containers: containers.current }}>
+        <DragdropContext.Provider value={{isDragging,  setIsDragging, registerContainer, unregisterContainer,containers: containers }}>
             <div>
                 {children}
             </div>
@@ -45,11 +45,12 @@ const DropdownContainerContext = React.createContext({
 Dragdrop.Container  = function Container<T>({ children, addItem , removeItem }: { children: React.ReactElement, addItem: (item: T) => any, removeItem: (item: T) => any }) {
 
     const { setIsDragging, registerContainer, unregisterContainer,containers } = React.useContext(DragdropContext);
-    const containerid = useRef(0);
+    const [containerid, setContainerid] = useState(0);
 
     useEffect(() => {
-        containerid.current = registerContainer(addItem, removeItem);
-        return () => unregisterContainer(containerid.current);
+        const id = registerContainer(addItem, removeItem);
+        setContainerid(id);
+        return () => unregisterContainer(id);
     }, [registerContainer, unregisterContainer, addItem, removeItem]);
 
     function onDrop(event: React.DragEvent<HTMLDivElement>) {
@@ -57,7 +58,7 @@ Dragdrop.Container  = function Container<T>({ children, addItem , removeItem }: 
         setIsDraggedOver(false);
         const data = JSON.parse(event.dataTransfer.getData('source'));
         const sourceContainer = containers.find(container => container.id === data.containerid);
-        if (sourceContainer?.id === containerid.current) return;
+        if (sourceContainer?.id === containerid) return;
         addItem(data.item);
         if (sourceContainer) {
             sourceContainer.removeItem(data.item);
@@ -82,7 +83,7 @@ Dragdrop.Container  = function Container<T>({ children, addItem , removeItem }: 
         setIsDraggedOver(false);
     }
     
-    return <DropdownContainerContext.Provider value={{containerid: containerid.current}}>
+    return <DropdownContainerContext.Provider value={{containerid: containerid}}>
         {React.cloneElement(children, { 
             onDrop, 
             onDragEnter, 

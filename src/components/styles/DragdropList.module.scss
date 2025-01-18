@@ -1,0 +1,20 @@
+.dragdropContainer{
+    .dragdropItem{
+        // pointer-events: none;
+        &.dragging{
+            pointer-events: none;
+        }
+
+        &.beingDraggedOver{
+            // visibility: hidden;
+            // opacity: 0;
+            // color: #000;
+            // height: 10px;
+        }
+    }
+
+    &.draggedOver{
+        border: 5px solid #97c455;
+        opacity: 0.9;
+    }
+}

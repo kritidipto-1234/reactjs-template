@@ -101,6 +101,7 @@ Dragdrop.Item = function Item({ children , data }: { children: React.ReactElemen
     function onDragStart(event: React.DragEvent<HTMLDivElement>) {
         setIsDragging(true);
         setIsGettingDragged(true);
+        // requestAnimationFrame(() => setIsGettingDragged(true));
         event.dataTransfer.setData('source', JSON.stringify({item: data, containerid: containerid}));
     }
 

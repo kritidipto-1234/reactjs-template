@@ -18,7 +18,6 @@ function List({ list }: ListProps) {
     }, []);
     const removeItem = useCallback((item: any) => {
         setItems((items) => {
-            debugger;
             return items.filter((i) => i.id !== item.id).slice();
         });
     }, []);

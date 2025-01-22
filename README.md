@@ -1,44 +1,50 @@
-# Date Range Picker Configuration
+# React + TypeScript + Vite
 
-The Date Range Picker component accepts the following configuration options:
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## Configuration Options
+Currently, two official plugins are available:
 
-| Option | Type | Default | Description |
-|--------|------|---------|-------------|
-| `pastDateAllowed` | boolean | `false` | Controls whether dates before the current date can be selected |
-| `startEndSameAllowed` | boolean | `false` | Determines if start and end date can be the same day |
-| `maxRange` | number | undefined | Maximum number of days that can be selected between start and end date |
-| `maxDateInFuture` | Date | undefined | Latest possible date that can be selected |
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-restriction -
-  cant have start date after end date
+## Expanding the ESLint configuration
 
+If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
 
+- Configure the top-level `parserOptions` property like this:
 
-## Steps to Run the Project
+```js
+export default tseslint.config({
+  languageOptions: {
+    // other options...
+    parserOptions: {
+      project: ['./tsconfig.node.json', './tsconfig.app.json'],
+      tsconfigRootDir: import.meta.dirname,
+    },
+  },
+})
+```
 
-To run this project, follow these steps:
+- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
+- Optionally add `...tseslint.configs.stylisticTypeChecked`
+- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
 
+```js
+// eslint.config.js
+import react from 'eslint-plugin-react'
 
-1. **Install dependencies:**
-   Make sure you have Node.js installed. Then, run:
-   yarn install
-
-2. **Run the development server:**
-   Start the Vite development server to serve the project locally:
-   yarn run dev
-
-4. **Build the project for production:**
-   To create a production build, run:
-   yarn run build-prod
-
-4. **Preview the production build:**
-   To preview the production build locally, run:
-   yarn run preview
-
-5. **Lint the project:**
-   To lint the project and check for any TypeScript errors, run:
-   yarn run lint
-
-These steps utilize the configuration defined in `vite.config.ts` and the scripts specified in `package.json`.
+export default tseslint.config({
+  // Set the react version
+  settings: { react: { version: '18.3' } },
+  plugins: {
+    // Add the react plugin
+    react,
+  },
+  rules: {
+    // other rules...
+    // Enable its recommended rules
+    ...react.configs.recommended.rules,
+    ...react.configs['jsx-runtime'].rules,
+  },
+})
+```

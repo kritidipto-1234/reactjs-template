@@ -19,15 +19,10 @@ export default tseslint.config(
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
-      'no-empty': ['warn'],
       'react-refresh/only-export-components': [
         'warn',
         { allowConstantExport: true },
       ],
-      '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
-      // '@typescript-eslint/no-unused-params': ['warn', { argsIgnorePattern: '^_' }],
-      // 'no-unused-params': ['warn'],
-      'no-unused-vars': ['warn', { argsIgnorePattern: '^_' }], 
     },
   },
 )

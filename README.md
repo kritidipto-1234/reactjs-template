@@ -1,1 +1,1 @@
-site https://kriti-carousel.netlify.app
+

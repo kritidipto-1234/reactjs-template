@@ -63,6 +63,7 @@ function SearchComponent() {
             <input
                 type="text"
                 value={results}
+                placeholder='Search'
                 className={styles.autocomplete}
             />
         </div>

@@ -4,32 +4,34 @@ import useFormattedTime from '../hooks/useFormattedTime';
 import upto2Digit from '../utils/upto2digit';
 import { useRef } from 'react';
 
-function Timer(){
-    const [timeLeft,setTimeleft] = useState(0);
+function Timer({countDown}){
+    const [CurrentTime,setCurrentTime] = useState(0);
     const [isRunning, setIsRunning] = useState(false);
     const [isStarted, setIsStarted] = useState(false);
     const timerRef = useRef(null);
 
-    const {minutes, seconds, centiseconds} = useFormattedTime(timeLeft);
+    const {minutes, seconds, centiseconds} = useFormattedTime(CurrentTime);
 
     const handleUpdateTime = useCallback(()=>{
-        setTimeleft(t=>{
-            if (t<=0) {
+        setCurrentTime(t=>{
+            if (countDown && t<=0) {
                 setIsRunning(false);
                 setIsStarted(false);
                 clearInterval(timerRef.current);
                 timerRef.current = null;
                 return 0;
             }
-            return t-1;
+            return countDown?t-1:t+1;
         });
-    },[]);
+    },[countDown]);
 
     function handleStart(e){
         e.preventDefault();
         if (isRunning) return;
-        const time = parseInt(new FormData(e.target).get('time'));
-        setTimeleft(time*100);
+        if (countDown) {
+             const time = parseInt(new FormData(e.target).get('time'));
+            setCurrentTime(time*100);
+        }
         setIsRunning(true);
         setIsStarted(true);
         timerRef.current = setInterval(handleUpdateTime,10);
@@ -47,7 +49,9 @@ function Timer(){
     }
 
     function handleReset(){
-        setTimeleft(0);
+        setCurrentTime(0);
+        clearInterval(timerRef.current);
+        timerRef.current = null;
         setIsRunning(false);
         setIsStarted(false);
     }
@@ -61,13 +65,15 @@ function Timer(){
     }, []);
 
     return <div className={styles.Timer}>
-        <form className={isStarted ? styles.hidden : ''} onSubmit={handleStart}>
+        {countDown==true?'Count Down':'Normal Timer'}
+        {countDown && <form className={isStarted ? styles.hidden : ''} onSubmit={handleStart}>
             <input type='number' name='time' placeholder='Enter seconds' ></input>
             <button  type='submit'>Start</button>
-        </form>
-        <div className={styles.buttonTray + ' ' + (!isStarted ? styles.hidden : '')}>
+        </form>}
+        <div className={styles.buttonTray + ' ' + (countDown && !isStarted ? styles.hidden : '')}>
+            <button className={!isStarted && !countDown ?  '' : styles.hidden} type='button' onClick={handleStart}>Start</button>
             <button className={isRunning ?  '' : styles.hidden} type='button' onClick={handlePause}>Pause</button>
-            <button className={!isRunning ? '' : styles.hidden} type='button' onClick={handleResume}>Resume</button>
+            <button className={ (isStarted && !isRunning) ? '' : styles.hidden} type='button' onClick={handleResume}>Resume</button>
             <button className={isStarted ? '' : styles.hidden} type='button' onClick={handleReset}>Reset</button>
         </div>
         <div>

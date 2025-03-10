@@ -7,7 +7,8 @@ function App() {
   return (
     <>
       <div>
-        <Timer/>
+        <Timer countDown={true}/>
+        <Timer countDown={false}/>
       </div>
     </>
   )

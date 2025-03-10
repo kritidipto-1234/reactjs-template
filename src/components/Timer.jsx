@@ -9,21 +9,25 @@ function Timer({countDown}){
     const [isRunning, setIsRunning] = useState(false);
     const [isStarted, setIsStarted] = useState(false);
     const timerRef = useRef(null);
+    const lastTickTime = useRef(null);
 
     const {minutes, seconds, centiseconds} = useFormattedTime(CurrentTime);
 
-    const handleUpdateTime = useCallback(()=>{
-        setCurrentTime(t=>{
-            if (countDown && t<=0) {
-                setIsRunning(false);
-                setIsStarted(false);
-                clearInterval(timerRef.current);
-                timerRef.current = null;
-                return 0;
-            }
-            return countDown?t-1:t+1;
-        });
-    },[countDown]);
+    function startTimer() {
+        setIsRunning(true);
+        timerRef.current = setInterval(()=>{
+            setCurrentTime(t=>{
+                if (countDown && t<=0) {
+                    setIsRunning(false);
+                    setIsStarted(false);
+                    clearInterval(timerRef.current);
+                    timerRef.current = null;
+                    return 0;
+                }
+                return countDown?t-1:t+1;
+            });
+        },1);
+    }
 
     function handleStart(e){
         e.preventDefault();
@@ -34,7 +38,7 @@ function Timer({countDown}){
         }
         setIsRunning(true);
         setIsStarted(true);
-        timerRef.current = setInterval(handleUpdateTime,10);
+        startTimer();
     }
 
     function handlePause(){
@@ -44,8 +48,7 @@ function Timer({countDown}){
     }
 
     function handleResume(){
-        setIsRunning(true);
-        timerRef.current = setInterval(handleUpdateTime,10);
+        startTimer();
     }
 
     function handleReset(){

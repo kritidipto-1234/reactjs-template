@@ -29,7 +29,7 @@ function Timer({countDown}){
                 }
                 return countDown?t-change:t+change;
             });
-        },1);
+        },10);
     }
 
     function handleStart(e){

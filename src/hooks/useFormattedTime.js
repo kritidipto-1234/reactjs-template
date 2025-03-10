@@ -1,12 +1,11 @@
-function useFormattedTime(centisecs){
-    const minutes = Math.floor(centisecs / 6000);
-    centisecs = centisecs % 6000;
-    const seconds  = Math.floor(centisecs / 100);
-    centisecs = centisecs % 100;
-    const centiseconds = centisecs;
+function useFormattedTime(millisecs){
+    const minutes = Math.floor(millisecs / 60000);
+    millisecs = millisecs % 60000;
+    const seconds = Math.floor(millisecs / 1000);
+    millisecs = millisecs % 1000;
+    const centiseconds = Math.floor(millisecs / 10);
 
     return {minutes, seconds, centiseconds};
-
 }
 
 export default useFormattedTime;

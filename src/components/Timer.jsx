@@ -15,7 +15,10 @@ function Timer({countDown}){
 
     function startTimer() {
         setIsRunning(true);
+        lastTickTime.current=Date.now();
         timerRef.current = setInterval(()=>{
+            const change = Date.now()-lastTickTime.current;
+            lastTickTime.current=Date.now();
             setCurrentTime(t=>{
                 if (countDown && t<=0) {
                     setIsRunning(false);
@@ -24,7 +27,7 @@ function Timer({countDown}){
                     timerRef.current = null;
                     return 0;
                 }
-                return countDown?t-1:t+1;
+                return countDown?t-change:t+change;
             });
         },1);
     }
